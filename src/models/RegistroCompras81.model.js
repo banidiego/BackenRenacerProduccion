@@ -1,0 +1,56 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.RegistroCompras81Model = void 0;
+class RegistroCompras81Model {
+    constructor() {
+        this.Id_RegistroCompras81 = null;
+        this.Periodo = '';
+        this.CUO = '';
+        this.CUO_Alfanumerico = '';
+        this.FechaEmision = new Date();
+        this.FechaVencimiento = new Date();
+        this.TipoComprobante = '';
+        this.Serie = '';
+        this.AnoDUA = '';
+        this.NumeroComprobante = '';
+        this.ComprobantesAgrupados = '';
+        this.TipoDocumentoIdentidad = '';
+        this.RUCProveedor = '';
+        this.RazonSocial = '';
+        this.C1 = 0;
+        this.C2 = 0;
+        this.C3 = 0;
+        this.C4 = 0;
+        this.C5 = 0;
+        this.C6 = 0;
+        this.C7 = 0;
+        this.C8 = 0;
+        this.C9 = 0;
+        this.C10 = 0;
+        this.ImporteTotal = 0;
+        this.CodigoMoneda = '';
+        this.TipoCambio = 0;
+        this.NCFechaEmision = new Date();
+        this.NCTipoComprobante = '';
+        this.NCSerie = '';
+        this.NCCodigoDependencia = '';
+        this.NCNumeroComprobante = '';
+        this.DefraccionFechaEmision = new Date();
+        this.DefraccionNumeroConstancia = '';
+        this.DefraccionNumeroComprobante = '';
+        this.ClasificacionBienes = '';
+        this.IdentificacionContrato = '';
+        this.ErrorTipo1 = '';
+        this.ErrorTipo2 = '';
+        this.ErrorTipo3 = '';
+        this.ErrorTipo4 = '';
+        this.CanceladoBancarizado = false;
+        this.EstadoOperacion = '';
+        this.TipoCompra = 0;
+        this.Mes = '';
+        this.Ano = 0;
+        this.Bannys = true;
+        this.Id_Empresa = 0;
+    }
+}
+exports.RegistroCompras81Model = RegistroCompras81Model;

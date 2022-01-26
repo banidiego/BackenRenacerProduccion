@@ -1,0 +1,54 @@
+CREATE PROCEDURE `ReporteGastosVentas` (
+IN _Mes varchar(50),
+IN _Ano int,
+IN _Fecha date,
+IN _Id_Empresa int
+)
+BEGIN
+	declare VentaDiaBannys decimal(9,2);
+    declare VentaMesBannys decimal(9,2);
+    declare GastosMesBannys decimal(9,2);
+    declare VentaDiaZendy decimal(9,2);
+    declare VentaMesZendy decimal(9,2);
+    declare GastosMesZendy decimal(9,2);
+
+	-- Realizamos Consultas y llenamos las Variables 
+	SELECT SUM(Monto) FROM VentaSimple WHERE Fecha=_Fecha and Id_Empresa=_Id_Empresa and Bannys=1 INTO VentaDiaBannys;
+
+	SELECT SUM(Monto) FROM VentaSimple WHERE Mes=_Mes and Ano=_Ano and Id_Empresa=_Id_Empresa and Bannys=1 INTO VentaMesBannys;
+
+	SELECT SUM(ImporteTotal) from RegistroCompras81 WHERE Mes=_Mes and Ano=Ano and Id_Empresa=_Id_Empresa and Bannys=1 INTO GastosMesBannys;
+
+	SELECT SUM(Monto) FROM VentaSimple WHERE Fecha=_Fecha and Id_Empresa=_Id_Empresa and Bannys=0 INTO VentaDiaZendy;
+
+	SELECT SUM(Monto) FROM VentaSimple WHERE Mes=_Mes and Ano=_Ano and Id_Empresa=_Id_Empresa and Bannys=0 INTO VentaMesZendy;
+
+	SELECT SUM(ImporteTotal) from RegistroCompras81 WHERE Mes=_Mes and Ano=Ano and Id_Empresa=_Id_Empresa and Bannys=0 INTO GastosMesZendy;
+
+	-- Condicionamos LAS RESPUESTAS si es null es 0 
+	IF (VentaDiaBannys) IS NULL THEN 
+		SET VentaDiaBannys=0; 
+	END IF;
+
+	IF (VentaMesBannys) IS NULL THEN 
+		SET VentaMesBannys=0; 
+	END IF;
+
+	IF (GastosMesBannys) IS NULL THEN 
+		SET GastosMesBannys=0; 
+	END IF;
+
+	IF (VentaDiaZendy) IS NULL THEN 
+		SET VentaDiaZendy=0; 
+	END IF;
+
+	IF (VentaMesZendy) IS NULL THEN 
+		SET VentaMesZendy=0; 
+	END IF;
+
+	IF (GastosMesZendy) IS NULL THEN 
+		SET GastosMesZendy=0; 
+	END IF;
+    
+    select VentaDiaBannys,VentaMesBannys,GastosMesBannys,VentaDiaZendy,VentaMesZendy,GastosMesZendy;
+END

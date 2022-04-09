@@ -12,8 +12,8 @@ class ReportesGlobalesRoutes {
         this.config();
     }
     config() {
-        this.router.get('/VentasGastosMesAnoIdEmpresaBannys/:Mes/:Ano/:Fecha/:Id_Empresa', validar_jwt_1.default, ReportesGlobalesController_1.default.VentasGastosMesAnoIdEmpresaBannys);
-        this.router.get('/GastosVentasUtilidadesMensuales/:Id_Empresa/:Bannys', validar_jwt_1.default, ReportesGlobalesController_1.default.GastosVentasUtilidadesMensuales);
+        this.router.get('/InfoInicio/:Ano/:Id_Proyecto', ReportesGlobalesController_1.default.InfoInicio);
+        this.router.get('/ListaAsientosNoCuadrados/:Ano/:Id_Proyecto', ReportesGlobalesController_1.default.ListaAsientosNoCuadrados);
         this.router.get('/GastosVentasUtilidadesDiarios/:Id_Empresa/:Bannys', validar_jwt_1.default, ReportesGlobalesController_1.default.GastosVentasUtilidadesDiarios);
     }
 }

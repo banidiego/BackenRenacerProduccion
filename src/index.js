@@ -23,6 +23,8 @@ const TipoComprobanteRoutes_1 = __importDefault(require("./routes/TipoComprobant
 const LoginRoutes_1 = __importDefault(require("./routes/LoginRoutes"));
 const AuthRoutes_1 = __importDefault(require("./routes/AuthRoutes"));
 const TipoRegistroRoutes_1 = __importDefault(require("./routes/TipoRegistroRoutes"));
+const DatosOrganizacionRoutes_1 = __importDefault(require("./routes/DatosOrganizacionRoutes"));
+const ReportesGlobalesRoutes_1 = __importDefault(require("./routes/ReportesGlobalesRoutes"));
 class Server {
     constructor() {
         this.app = express_1.default();
@@ -53,6 +55,8 @@ class Server {
         this.app.use('/PlanContable', PlanContableRoutes_1.default);
         this.app.use('/SR', SRRoutes_1.default);
         this.app.use('/DetalleSR', DetalleSRRoutes_1.default);
+        this.app.use('/DatosOrganizacion', DatosOrganizacionRoutes_1.default);
+        this.app.use('/ReportesGlobales', ReportesGlobalesRoutes_1.default);
         this.app.use('/uploads', express_1.default.static(path_1.default.resolve('uploads')));
     }
     start() {

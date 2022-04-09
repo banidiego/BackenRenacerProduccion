@@ -59,6 +59,27 @@ class PlanContableController {
         });
     }
     // ==========================================
+    // Obtener todos PlanProyecto incluyendo no Movimiento
+    // ==========================================
+    ListaAnoTodo(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const ano = parseInt(req.params.Ano);
+            yield database_1.default.query('SELECT * FROM PlanContable WHERE Ano = ? ORDER BY Codigo_PlanCuenta', [ano], function (err, datos, fields) {
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error fltrando PlanContable',
+                        errors: err,
+                    });
+                }
+                return res.status(200).json({
+                    ok: true,
+                    PlanContable: datos,
+                });
+            });
+        });
+    }
+    // ==========================================
     // Crear un nuevo Plan Contable
     // ==========================================
     GuardarPlanContable(req, res) {
@@ -98,6 +119,78 @@ class PlanContableController {
                 res.status(201).json({
                     ok: true,
                     PlanContable: planContable,
+                });
+            });
+        });
+    }
+    // ==========================================
+    // Actualizar Plan Contable
+    // ==========================================
+    ActualizarPlanContable(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = req.params.id;
+            const planContable = new PlanContable_model_1.PlanContableModel();
+            const body = req.body;
+            planContable.Id_PlanContable = id;
+            planContable.Codigo_PlanCuenta = body.Codigo_PlanCuenta;
+            planContable.Nombre_PlanCuenta = body.Nombre_PlanCuenta;
+            planContable.DebeApertura = body.DebeApertura;
+            planContable.HaberApertura = body.HaberApertura;
+            planContable.DebeMovimientoAnual = body.DebeMovimientoAnual;
+            planContable.HaberMovimientoAnual = body.HaberMovimientoAnual;
+            planContable.DeudorSaldos = body.DeudorSaldos;
+            planContable.AcreedorSaldos = body.AcreedorSaldos;
+            planContable.DeudorSaldosAjustados = body.DeudorSaldosAjustados;
+            planContable.AcreedorSaldosAjustados = body.AcreedorSaldosAjustados;
+            planContable.ActivoBG = body.ActivoBG;
+            planContable.PasivoBG = body.PasivoBG;
+            planContable.PerdidaFuncion = body.PerdidaFuncion;
+            planContable.GananciaFuncion = body.GananciaFuncion;
+            planContable.PerdidaNaturaleza = body.PerdidaNaturaleza;
+            planContable.GananciaNaturaleza = body.GananciaNaturaleza;
+            planContable.Movimiento = body.Movimiento;
+            planContable.CuentaActiva = body.CuentaActiva;
+            planContable.Id_Proyecto = body.Id_Proyecto;
+            planContable.Ano = body.Ano;
+            yield database_1.default.query('UPDATE SR set ? WHERE Id_SR = ?', [planContable, id], (err, datos) => {
+                if (err) {
+                    return res.status(400).json({
+                        ok: false,
+                        mensaje: 'Error al Actualizar Operación',
+                        errors: err,
+                    });
+                }
+                res.status(201).json({
+                    ok: true,
+                    PlanContable: planContable,
+                });
+            });
+        });
+    }
+    // ============================================
+    //   Borrar Plan Contable
+    // ============================================
+    EliminarPlanContable(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = req.params.id;
+            yield database_1.default.query('DELETE FROM PlanContable WHERE Id_PlanContable=?', [id], function (err, datos, fields) {
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error al borrar PlanContable',
+                        errors: err,
+                    });
+                }
+                if (!datos) {
+                    return res.status(400).json({
+                        ok: false,
+                        mensaje: 'No existe un PlanContable con ese id',
+                        errors: { message: 'No existe un PlanContable con ese id' },
+                    });
+                }
+                res.status(200).json({
+                    ok: true,
+                    PlanContable: datos,
                 });
             });
         });

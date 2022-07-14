@@ -137,6 +137,28 @@ class PlanProyectoController {
             });
         });
     }
+    // ==========================================
+    // ActualizarValoresPlanProyecto
+    // ==========================================
+    ActualizarValoresPlanProyecto(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id_Proyecto = req.params.Id_Proyecto;
+            const ano = req.params.Ano;
+            yield database_1.default.query('CALL `ActualizarValoresPlanProyecto`(?,?)', [id_Proyecto, ano], function (err, resp, fields) {
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error cargando Procedimiento Almacenado',
+                        errors: err,
+                    });
+                }
+                return res.status(200).json({
+                    ok: true,
+                    Respuesta: resp,
+                });
+            });
+        });
+    }
 }
 const planProyectoController = new PlanProyectoController();
 exports.default = planProyectoController;

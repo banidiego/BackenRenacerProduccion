@@ -13,6 +13,7 @@ class PlanProyectoRoutes {
     config() {
         this.router.get('/FiltrarRUC/:Ruc', PlanProyectoController_1.default.ListaCodigoPlanProyecto);
         this.router.get('/Lista/:Ano/:Id_Proyecto', PlanProyectoController_1.default.ListaAnoCodigoProyecto);
+        this.router.get('/ActualizarValoresPlanProyecto/:Id_Proyecto/:Ano', PlanProyectoController_1.default.ActualizarValoresPlanProyecto);
         this.router.post('/', PlanProyectoController_1.default.GuardarPlanProyecto);
     }
 }

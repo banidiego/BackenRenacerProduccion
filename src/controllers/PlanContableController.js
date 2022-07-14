@@ -195,6 +195,27 @@ class PlanContableController {
             });
         });
     }
+    // ==========================================
+    // ActualizarValoresPlanProyecto
+    // ==========================================
+    ActualizarValoresPlanContable(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const ano = req.params.Ano;
+            yield database_1.default.query('CALL `ActualizarValoresPlanContable`(?)', [ano], function (err, resp, fields) {
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error cargando Procedimiento Almacenado',
+                        errors: err,
+                    });
+                }
+                return res.status(200).json({
+                    ok: true,
+                    Respuesta: resp,
+                });
+            });
+        });
+    }
 }
 const planContableController = new PlanContableController();
 exports.default = planContableController;

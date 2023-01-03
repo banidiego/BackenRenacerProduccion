@@ -38,6 +38,26 @@ class ProyectoController {
         });
     }
     // ==========================================
+    // Obtener de Proyecto Actual (para SR)
+    // ==========================================
+    ListaProyectos(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield database_1.default.query('SELECT * FROM Proyecto', function (err, resp, fields) {
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error cargando Variables de Sesión',
+                        errors: err,
+                    });
+                }
+                return res.status(200).json({
+                    ok: true,
+                    Proyecto: resp,
+                });
+            });
+        });
+    }
+    // ==========================================
     // Crear Proyecto
     // ==========================================
     GuardarProyecto(req, res) {
@@ -63,6 +83,36 @@ class ProyectoController {
                 res.status(201).json({
                     ok: true,
                     proyecto: proyecto,
+                });
+            });
+        });
+    }
+    // ==========================================
+    // Actualizar DetalleSR
+    // ==========================================
+    ActualizarProyecto(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = req.params.id;
+            var proyecto = new Proyecto_model_1.ProyectoModel();
+            var body = req.body;
+            proyecto.Id_Proyecto = id;
+            proyecto.Codigo_Proyecto = body.Codigo_Proyecto;
+            proyecto.Nombre_Proyecto = body.Nombre_Proyecto;
+            proyecto.Cooperante = body.Cooperante;
+            proyecto.Estado = body.Estado;
+            proyecto.Origen = body.Origen;
+            proyecto.Serie = body.Serie;
+            yield database_1.default.query('UPDATE Proyecto set ? WHERE Id_Proyecto = ?', [proyecto, id], (err, datos) => {
+                if (err) {
+                    return res.status(400).json({
+                        ok: false,
+                        mensaje: 'Error al Actualizar DetalleSR',
+                        errors: err,
+                    });
+                }
+                res.status(201).json({
+                    ok: true,
+                    proyecto: datos,
                 });
             });
         });

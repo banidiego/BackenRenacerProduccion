@@ -38,12 +38,33 @@ class PlanContableController {
         });
     }
     // ==========================================
+    // Obtener todos el PlanContable filtrados por Codigo_PlanCuenta y Año
+    // ==========================================
+    ListaIdPlanCuenta(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id_PlanCuenta = req.params.Id_PlanContable;
+            yield database_1.default.query('SELECT * FROM PlanContable WHERE Id_PlanContable = ? ', [id_PlanCuenta], function (err, datos, fields) {
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error fltrando PlanContable',
+                        errors: err,
+                    });
+                }
+                return res.status(200).json({
+                    ok: true,
+                    PlanContable: datos,
+                });
+            });
+        });
+    }
+    // ==========================================
     // Obtener todos PlanProyecto
     // ==========================================
     ListaAno(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const ano = parseInt(req.params.Ano);
-            yield database_1.default.query('SELECT * FROM PlanContable WHERE Ano = ? and Movimiento = 1', [ano], function (err, datos, fields) {
+            yield database_1.default.query('SELECT * FROM PlanContable WHERE Ano = ? and Movimiento = 1 ', [ano], function (err, datos, fields) {
                 if (err) {
                     return res.status(500).json({
                         ok: false,
@@ -64,7 +85,7 @@ class PlanContableController {
     ListaAnoTodo(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const ano = parseInt(req.params.Ano);
-            yield database_1.default.query('SELECT * FROM PlanContable WHERE Ano = ? ORDER BY Codigo_PlanCuenta', [ano], function (err, datos, fields) {
+            yield database_1.default.query('SELECT * FROM PlanContable WHERE Ano = ? ORDER BY Codigo_PlanCuenta ASC', [ano], function (err, datos, fields) {
                 if (err) {
                     return res.status(500).json({
                         ok: false,
@@ -152,7 +173,7 @@ class PlanContableController {
             planContable.CuentaActiva = body.CuentaActiva;
             planContable.Id_Proyecto = body.Id_Proyecto;
             planContable.Ano = body.Ano;
-            yield database_1.default.query('UPDATE SR set ? WHERE Id_SR = ?', [planContable, id], (err, datos) => {
+            yield database_1.default.query('UPDATE PlanContable set ? WHERE Id_PlanContable = ?', [planContable, id], (err, datos) => {
                 if (err) {
                     return res.status(400).json({
                         ok: false,

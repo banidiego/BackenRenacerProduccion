@@ -12,6 +12,10 @@ class MedioPagoRoutes {
     }
     config() {
         this.router.get('/', MedioPagoController_1.default.Lista);
+        this.router.get('/:id', MedioPagoController_1.default.MedioPagoId);
+        this.router.post('/', MedioPagoController_1.default.Guardar);
+        this.router.put('/:id', MedioPagoController_1.default.Actualizar);
+        this.router.delete('/:id', MedioPagoController_1.default.Eliminar);
     }
 }
 exports.default = new MedioPagoRoutes().router;

@@ -12,34 +12,50 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const path_1 = __importDefault(require("path"));
-const fs_extra_1 = __importDefault(require("fs-extra"));
 const database_1 = __importDefault(require("../database"));
 const Usuario_model_1 = require("../models/Usuario.model");
 class UsuarioController {
-    // // ==========================================
-    // // Obtener Información de Variables de Sesión - Si no Exite lo crea
-    // // ==========================================
-    // public async VariableSesionId(req: Request, res: Response) {
-    //   const Id = req.params.id;
-    //   await pool.query(
-    //     'SELECT * FROM VariableSesion WHERE Id_Usuario = ?',
-    //     [Id],
-    //     function (err, datos, fields) {
-    //       if (err) {
-    //         return res.status(500).json({
-    //           ok: false,
-    //           mensaje: 'Error cargando Variables de Sesión',
-    //           errors: err,
-    //         });
-    //       }
-    //       return res.status(200).json({
-    //         ok: true,
-    //         VariablesSesion: datos[0],
-    //       });
-    //     }
-    //   );
-    // }
+    // ==========================================
+    // Lista Tipo de Comprobante
+    // ==========================================
+    Lista(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield database_1.default.query('SELECT * FROM Usuario  ', function (err, datos, fields) {
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error cargando Tipo Documento',
+                        errors: err,
+                    });
+                }
+                return res.status(200).json({
+                    ok: true,
+                    Usuarios: datos,
+                });
+            });
+        });
+    }
+    // ==========================================
+    // Filtrar TipoDocumento desde Codigo_TipoDocumento - Para obtener TipoRegistro
+    // ==========================================
+    UsuarioId(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = req.params.id;
+            yield database_1.default.query('SELECT * FROM Usuario where Id_Usuario = ?', [id], function (err, datos, fields) {
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error filtrando Tipo Documento',
+                        errors: err,
+                    });
+                }
+                return res.status(200).json({
+                    ok: true,
+                    Usuario: datos,
+                });
+            });
+        });
+    }
     // ==========================================
     // Crear usuario
     // ==========================================
@@ -52,7 +68,8 @@ class UsuarioController {
             usuario.Password = body.Password;
             usuario.Nombres = body.Nombres;
             usuario.Email = body.Email;
-            usuario.Imagen = req.file.path;
+            usuario.Imagen = body.Imagen;
+            usuario.Id_TipoUsuario = body.Id_TipoUsuario;
             yield database_1.default.query('INSERT INTO Usuario set ?', usuario, (err, datos) => {
                 if (err) {
                     return res.status(400).json({
@@ -87,16 +104,8 @@ class UsuarioController {
             usuario.Password = body.Password;
             usuario.Nombres = body.Nombres;
             usuario.Email = body.Email;
-            usuario.Imagen = req.file.path;
-            yield database_1.default.query('Select Imagen from Usuario where Id_Usuario=?', [id], (err, datos) => {
-                if (err) {
-                }
-                else {
-                    if (path_1.default.resolve(datos[0].Imagen)) {
-                        fs_extra_1.default.unlink(path_1.default.resolve(datos[0].Imagen));
-                    }
-                }
-            });
+            usuario.Imagen = body.Imagen;
+            usuario.Id_TipoUsuario = body.Id_TipoUsuario;
             yield database_1.default.query('UPDATE Usuario set ? WHERE Id_Usuario = ?', [usuario, id], (err, datos) => {
                 if (err) {
                     return res.status(400).json({
@@ -132,9 +141,6 @@ class UsuarioController {
                         mensaje: 'No existe un Usuario con ese id',
                         errors: { message: 'No existe un Usuario con ese id' },
                     });
-                }
-                if (dato) {
-                    fs_extra_1.default.unlink(path_1.default.resolve(dato.Imagen));
                 }
                 res.status(200).json({
                     ok: true,

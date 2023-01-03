@@ -13,6 +13,7 @@ class PlanContableRoutes {
     }
     config() {
         this.router.get('/FiltrarCodigo/:Codigo_PlanCuenta/:Ano', PlanContableController_1.default.ListaCodigoPlanCuentaAno);
+        this.router.get('/FiltrarId/:Id_PlanContable', PlanContableController_1.default.ListaIdPlanCuenta);
         this.router.get('/Lista/:Ano', PlanContableController_1.default.ListaAno);
         this.router.get('/ListaTodo/:Ano', PlanContableController_1.default.ListaAnoTodo);
         this.router.get('/ActualizarValoresPlanContable/:Ano', PlanContableController_2.default.ActualizarValoresPlanContable);

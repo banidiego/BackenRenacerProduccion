@@ -13,6 +13,10 @@ class TipoComprobanteRoutes {
     config() {
         this.router.get('/', TipoComprobanteController_1.default.Lista);
         this.router.get('/FiltrarTipoDocumento/:Codigo_TipoDocumento', TipoComprobanteController_1.default.TipoDocumentoCodigo);
+        this.router.get('/:id', TipoComprobanteController_1.default.TipoDocumentoId);
+        this.router.post('/', TipoComprobanteController_1.default.Guardar);
+        this.router.put('/:id', TipoComprobanteController_1.default.Actualizar);
+        this.router.delete('/:id', TipoComprobanteController_1.default.Eliminar);
     }
 }
 exports.default = new TipoComprobanteRoutes().router;

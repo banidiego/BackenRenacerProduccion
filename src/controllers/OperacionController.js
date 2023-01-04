@@ -37,6 +37,26 @@ class OperacionController {
         });
     }
     // ==========================================
+    // Obtener Lista de todas las Operaciones (Historia))
+    // ==========================================
+    ListaOperacionTodo(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield database_1.default.query('SELECT * FROM Operacion', function (err, datos, fields) {
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error cargando las Operaciones',
+                        errors: err,
+                    });
+                }
+                return res.status(200).json({
+                    ok: true,
+                    operaciones: datos,
+                });
+            });
+        });
+    }
+    // ==========================================
     // Obtener Lista de Operaciones por Id_DetalleSR TipoSR 2 - Para Tabla de Registro de Gasto
     // ==========================================
     ListaOperacionIdDetalleSRRegistroGasto(req, res) {

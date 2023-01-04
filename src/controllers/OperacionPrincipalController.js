@@ -40,6 +40,26 @@ class OperacionPrincipalController {
         });
     }
     // ==========================================
+    // Obtener Operaciones no Cuadradas
+    // ==========================================
+    OperacionesPricipalesNoCuadradas(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield database_1.default.query('SELECT * FROM OperacionPrincipal WHERE Cuadrado=0 Order by FechaOperacion', function (err, datos, fields) {
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error cargando Operacion Principal',
+                        errors: err,
+                    });
+                }
+                return res.status(200).json({
+                    ok: true,
+                    OperacionPrincipal: datos,
+                });
+            });
+        });
+    }
+    // ==========================================
     // Obtener Origen por Año y Nombre de Proyecto para cargar Menu información con Datos
     // ==========================================
     ListaAnoNombreProyecto(req, res) {

@@ -60,6 +60,26 @@ class SRController {
         });
     }
     // ==========================================
+    // Lista Solicitudes todas las Solicitudes
+    // ==========================================
+    SolicitudesTodo(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield database_1.default.query('SELECT * FROM SR ', function (err, resp, fields) {
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error cargando constiables de Sesión',
+                        errors: err,
+                    });
+                }
+                return res.status(200).json({
+                    ok: true,
+                    Solicitudes: resp,
+                });
+            });
+        });
+    }
+    // ==========================================
     // Obtener Número de Solicitud (Maximo por Codigo_Proyecto y por Año)
     // ==========================================
     MaximoNumeroSolicitud(req, res) {

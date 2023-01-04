@@ -15,6 +15,7 @@ class OperacionPrincipalRoutes {
         this.router.get('/DatosMenuInformacion/:Ano/:Nombre', OperacionPrincipalController_1.default.ListaAnoNombreProyecto);
         this.router.get('/:Id', OperacionPrincipalController_1.default.ListaIdOperacionPrincipal);
         this.router.get('/MenuInformacion/:Ano', OperacionPrincipalController_1.default.ListaAno);
+        this.router.get('/', OperacionPrincipalController_1.default.OperacionesPricipalesNoCuadradas);
         this.router.get('/NumeroOperacion/:TipoOrigen/:Ano/:Mes/:Id_Proyecto', OperacionPrincipalController_1.default.MaxNumeroOperacion);
         this.router.get('/ActualizarLibroDiarioSimplificado/:Id_OperacionPrincipal', OperacionPrincipalController_1.default.ActualizarLibroDiarioSimplificado);
         this.router.post('/', OperacionPrincipalController_1.default.GuardarOperacionPrincipal);

@@ -15,6 +15,7 @@ class OperacionRoutes {
         this.router.get('/RegistroGasto/:Id_DetalleSR', OperacionController_1.default.ListaOperacionIdDetalleSRRegistroGasto);
         this.router.get('/SR/:Id_SR', OperacionController_1.default.ListaId_SR);
         this.router.get('/SRTipo3/:Id_SR', OperacionController_1.default.OperacionTipoSR3);
+        this.router.get('/', OperacionController_1.default.ListaOperacionTodo);
         this.router.post('/', OperacionController_1.default.GuardarOperacion);
         this.router.put('/:id', OperacionController_1.default.ActualizarOperacion);
         this.router.delete('/:id', OperacionController_1.default.EliminarOperacion);

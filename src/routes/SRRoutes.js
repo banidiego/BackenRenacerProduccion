@@ -14,6 +14,7 @@ class SRRoutes {
         this.router.get('/SolicitudesMes/:Ano/:Mes/:Id_Proyecto', SRController_1.default.ListaAnoMesIdProyecto);
         this.router.get('/SolicitudesRendir/:Id_Proyecto', SRController_1.default.SolicitudesRendir);
         this.router.get('/NumeroSolicitud/:Ano/:Id_Proyecto', SRController_1.default.MaximoNumeroSolicitud);
+        this.router.get('/', SRController_1.default.SolicitudesTodo);
         this.router.get('/:Id_SR', SRController_1.default.ListaIdSR);
         this.router.post('/', SRController_1.default.GuardarSR);
         this.router.put('/:id', SRController_1.default.ActualizarSR);

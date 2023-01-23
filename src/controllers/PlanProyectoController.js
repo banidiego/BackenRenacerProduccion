@@ -310,6 +310,54 @@ class PlanProyectoController {
             });
         });
     }
+    // ==========================================
+    // GastoBancarioMensual
+    // ==========================================
+    GastoBancarioMensual(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const ano = req.params.Ano;
+            const id_Proyecto = req.params.Id_Proyecto;
+            const mes = req.params.Mes;
+            const codigo_Planproyecto = req.params.Codigo_PlanProyecto;
+            yield database_1.default.query('CALL `GastoBancarioMensual`(?,?,?,?)', [ano, id_Proyecto, mes, codigo_Planproyecto], function (err, resp, fields) {
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error cargando Procedimiento Almacenado',
+                        errors: err,
+                    });
+                }
+                return res.status(200).json({
+                    ok: true,
+                    Respuesta: resp,
+                });
+            });
+        });
+    }
+    // ==========================================
+    // GastoBancarioMensual
+    // ==========================================
+    GastoAcumuladoMensual(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const ano = req.params.Ano;
+            const id_Proyecto = req.params.Id_Proyecto;
+            const mes = req.params.Mes;
+            const codigo_Planproyecto = req.params.Codigo_PlanProyecto;
+            yield database_1.default.query('CALL `GastoAcumuladoMensual`(?,?,?,?)', [ano, id_Proyecto, mes, codigo_Planproyecto], function (err, resp, fields) {
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error cargando Procedimiento Almacenado',
+                        errors: err,
+                    });
+                }
+                return res.status(200).json({
+                    ok: true,
+                    Respuesta: resp,
+                });
+            });
+        });
+    }
 }
 const planProyectoController = new PlanProyectoController();
 exports.default = planProyectoController;
